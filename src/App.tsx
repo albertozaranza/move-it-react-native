@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+
+import Home from './pages/Home'
 
 const App: React.FC = () => {
   return (
-    <View>
-      <Text>Move.it</Text>
-    </View>
+    <Home />
   );
 };
 
