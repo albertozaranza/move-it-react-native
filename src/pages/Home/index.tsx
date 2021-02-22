@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { Image, StatusBar } from 'react-native';
 
 import { ProgressBar } from '../../components';
 
@@ -9,13 +9,16 @@ import logo from '../../assets/images/logo.png';
 
 const Home: React.FC = () => {
   return (
-    <StyledContainer>
-      <StyledLogoContainer>
-        <Image source={logo} />
-        <StyledTitle>Move.it</StyledTitle>
-      </StyledLogoContainer>
-      <ProgressBar />
-    </StyledContainer>
+    <>
+      <StatusBar barStyle="light-content" backgroundColor="#5965e0" />
+      <StyledContainer>
+        <StyledLogoContainer>
+          <Image source={logo} />
+          <StyledTitle>Move.it Mobile</StyledTitle>
+        </StyledLogoContainer>
+        <ProgressBar />
+      </StyledContainer>
+    </>
   );
 };
 

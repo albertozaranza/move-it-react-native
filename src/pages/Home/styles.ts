@@ -7,12 +7,16 @@ export const StyledContainer = styled.View`
 `;
 
 export const StyledLogoContainer = styled.View`
-  margin-top: 48px;
+  width: 100%;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  background-color: #5965e0;
 `;
 
 export const StyledTitle = styled.Text`
-  margin-left: 16px;
-  color: #5965e0;
-  font-size: 48px;
+  margin-left: 8px;
+  color: #ffffff;
+  font-size: 32px;
 `;
