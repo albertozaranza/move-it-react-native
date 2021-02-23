@@ -9,6 +9,15 @@ const ProgressBar: React.FC = () => {
       <Text>0 xp</Text>
       <StyledProgress>
         <StyledCompletedProgress />
+        <StyledCurrentExperience
+          style={[
+            {
+              transform: [{ translateX: -16 }]
+            }
+          ]}
+        >
+          <Text>300xp</Text>
+        </StyledCurrentExperience>
       </StyledProgress>
       <Text>600 xp</Text>
     </StyledContainer>
@@ -34,6 +43,18 @@ const StyledCompletedProgress = styled(StyledProgress)`
   width: 60%;
   margin: 0;
   background-color: #4cd62b;
+`;
+
+const StyledCurrentExperience = styled.View.attrs({
+  style: [
+    {
+      transform: [{ translateX: -16 }]
+    }
+  ]
+})`
+  position: absolute;
+  top: 8px;
+  left: 60%;
 `;
 
 export default ProgressBar;
