@@ -1,4 +1,5 @@
-import Text from './Text';
-import ProgressBar from './ProgressBar';
+import ExperienceBar from './ExperienceBar';
+import Profile from './Profile';
+import Countdown from './Countdown';
 
-export { Text, ProgressBar };
+export { ExperienceBar, Profile, Countdown };

@@ -1,9 +1,8 @@
 import React from 'react';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
-import Text from './Text';
-
-const ProgressBar: React.FC = () => {
+const ExperienceBar: React.FC = () => {
   return (
     <StyledContainer>
       <Text>0 xp</Text>
@@ -57,4 +56,4 @@ const StyledCurrentExperience = styled.View.attrs({
   left: 60%;
 `;
 
-export default ProgressBar;
+export default ExperienceBar;
