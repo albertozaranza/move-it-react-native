@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
 import icArrowUp from '../assets/icons/icArrowUp.png';
@@ -27,7 +27,7 @@ const Profile: React.FC = () => {
 const StyledContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 48px;
+  margin-bottom: 32px;
 `;
 
 const StyledUserDetails = styled.View`

@@ -2,7 +2,12 @@ import React from 'react';
 import { Image, StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 
-import { ExperienceBar, Profile, Countdown } from './components';
+import {
+  ExperienceBar,
+  Profile,
+  Countdown,
+  CompletedChallenges
+} from './components';
 
 import logo from './assets/images/logo.png';
 
@@ -18,6 +23,7 @@ const App: React.FC = () => {
         <ExperienceBar />
         <StyledSection>
           <Profile />
+          <CompletedChallenges />
           <Countdown />
         </StyledSection>
       </StyledContainer>
