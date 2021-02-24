@@ -1,27 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
+import { ChallengesContext } from '../contexts/ChallengesContext';
+
 import icStartCycle from '../assets/icons/icStartCycle.png';
-import challenge from '../assets/images/challenge.png';
+import body from '../assets/images/body.png';
+import eye from '../assets/images/eye.png';
 
 const ChallengeBox: React.FC = () => {
-  const hasActiveChallenge = true;
+  const { activeChallenge, resetChallenge } = useContext(ChallengesContext);
 
   return (
     <StyledContainer>
-      {hasActiveChallenge ? (
+      {activeChallenge ? (
         <>
           <StyledActiveChallengeExperience>
-            Ganhe 400px
+            Ganhe {activeChallenge.amount}xp
           </StyledActiveChallengeExperience>
-          <StyledChallenge source={challenge} />
-          <StyledChallengeTitle>Exercite-se</StyledChallengeTitle>
+          <StyledChallenge
+            source={activeChallenge.type === 'body' ? body : eye}
+          />
+          <StyledChallengeTitle>Novo desafio</StyledChallengeTitle>
           <StyledChallengeDescription>
-            É agora Albertão, bora lá meu parça. Caminhe por 3 minutos e estique
-            suas pernas pra você ficar saudável
+            {activeChallenge.description}
           </StyledChallengeDescription>
           <StyledButtonsContainer>
-            <StyledFailedButton>
+            <StyledFailedButton onPress={resetChallenge}>
               <StyledButtonText>Falhei</StyledButtonText>
             </StyledFailedButton>
             <StyledCompletedButton>

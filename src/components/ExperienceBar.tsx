@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
+import { ChallengesContext } from '../contexts/ChallengesContext';
+
+interface PercentToNextLevel {
+  percentToNextLevel: number;
+}
+
 const ExperienceBar: React.FC = () => {
+  const { currentExperience, experienceToNextLevel } = useContext(
+    ChallengesContext
+  );
+
+  const percentToNextLevel = Math.floor(
+    (currentExperience * 100) / experienceToNextLevel
+  );
+
   return (
     <StyledContainer>
-      <Text>0 xp</Text>
+      <Text>0xp</Text>
       <StyledProgress>
-        <StyledCompletedProgress />
+        <StyledCompletedProgress percentToNextLevel={percentToNextLevel} />
         <StyledCurrentExperience
+          percentToNextLevel={percentToNextLevel}
           style={[
             {
               transform: [{ translateX: -16 }]
             }
           ]}
         >
-          <Text>300xp</Text>
+          <Text>{currentExperience}xp</Text>
         </StyledCurrentExperience>
       </StyledProgress>
-      <Text>600 xp</Text>
+      <Text>{experienceToNextLevel}xp</Text>
     </StyledContainer>
   );
 };
@@ -38,8 +53,8 @@ const StyledProgress = styled.View`
   background-color: #c5c5c7;
 `;
 
-const StyledCompletedProgress = styled(StyledProgress)`
-  width: 60%;
+const StyledCompletedProgress = styled(StyledProgress)<PercentToNextLevel>`
+  width: ${({ percentToNextLevel }) => `${percentToNextLevel}%`};
   margin: 0;
   background-color: #4cd62b;
 `;
@@ -50,10 +65,10 @@ const StyledCurrentExperience = styled.View.attrs({
       transform: [{ translateX: -16 }]
     }
   ]
-})`
+})<PercentToNextLevel>`
   position: absolute;
-  top: 8px;
-  left: 60%;
+  top: 12px;
+  left: ${({ percentToNextLevel }) => `${percentToNextLevel}%`};
 `;
 
 export default ExperienceBar;

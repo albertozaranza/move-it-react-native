@@ -10,6 +10,8 @@ import {
   ChallengeBox
 } from './components';
 
+import { ChallengesProvider } from './contexts/ChallengesContext';
+
 import logo from './assets/images/logo.png';
 
 const App: React.FC = () => {
@@ -21,13 +23,15 @@ const App: React.FC = () => {
         <StyledTitle>Move.it Mobile</StyledTitle>
       </StyledLogoContainer>
       <StyledContainer>
-        <ExperienceBar />
-        <StyledSection>
-          <Profile />
-          <CompletedChallenges />
-          <Countdown />
-          <ChallengeBox />
-        </StyledSection>
+        <ChallengesProvider>
+          <ExperienceBar />
+          <StyledSection>
+            <Profile />
+            <CompletedChallenges />
+            <Countdown />
+            <ChallengeBox />
+          </StyledSection>
+        </ChallengesProvider>
       </StyledContainer>
     </>
   );

@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
+import { ChallengesContext } from '../contexts/ChallengesContext';
+
 const CompletedChallenges: React.FC = () => {
+  const { completedChallenges } = useContext(ChallengesContext);
+
   return (
     <StyledContainer>
       <StyledCompletedChallengesLabel>
         Desafios completos
       </StyledCompletedChallengesLabel>
-      <StyledCompletedChallengesCounter>0</StyledCompletedChallengesCounter>
+      <StyledCompletedChallengesCounter>
+        {completedChallenges}
+      </StyledCompletedChallengesCounter>
     </StyledContainer>
   );
 };

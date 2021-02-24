@@ -1,5 +1,7 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useContext, useLayoutEffect, useState } from 'react';
 import styled from 'styled-components/native';
+
+import { ChallengesContext } from '../contexts/ChallengesContext';
 
 import icPlayArrow from '../assets/icons/icPlayArrow.png';
 import icStop from '../assets/icons/icStop.png';
@@ -10,6 +12,8 @@ const INITIAL_MINUTES = 0.05 * 60;
 let countdownTimeout: NodeJS.Timeout;
 
 const Countdown: React.FC = () => {
+  const { startNewChallenge } = useContext(ChallengesContext);
+
   const [time, setTime] = useState(INITIAL_MINUTES);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
@@ -29,8 +33,9 @@ const Countdown: React.FC = () => {
     if (isActive && time === 0) {
       setHasFinished(true);
       setIsActive(false);
+      startNewChallenge();
     }
-  }, [isActive, time]);
+  }, [isActive, time, startNewChallenge]);
 
   const startCountDown = (): void => {
     setIsActive(true);
