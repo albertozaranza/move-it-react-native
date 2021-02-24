@@ -3,16 +3,16 @@ import styled from 'styled-components/native';
 
 import icPlayArrow from '../assets/icons/icPlayArrow.png';
 import icStop from '../assets/icons/icStop.png';
+import icHasFinished from '../assets/icons/icHasFinished.png';
 
-const INITIAL_MINUTES = 25;
+const INITIAL_MINUTES = 0.05 * 60;
 
-interface IActive {
-  active: boolean;
-}
+let countdownTimeout: NodeJS.Timeout;
 
 const Countdown: React.FC = () => {
-  const [time, setTime] = useState(INITIAL_MINUTES * 60);
-  const [active, setActive] = useState(false);
+  const [time, setTime] = useState(INITIAL_MINUTES);
+  const [isActive, setIsActive] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -21,19 +21,25 @@ const Countdown: React.FC = () => {
   const [secondLeft, secondRight] = String(seconds).padStart(2, '0').split('');
 
   useLayoutEffect(() => {
-    if (active && time > 0) {
-      setTimeout(() => {
+    if (isActive && time > 0) {
+      countdownTimeout = setTimeout(() => {
         setTime(time - 1);
       }, 1000);
     }
-
-    if (!active) {
-      setTime(INITIAL_MINUTES * 60);
+    if (isActive && time === 0) {
+      setHasFinished(true);
+      setIsActive(false);
     }
-  }, [active, time]);
+  }, [isActive, time]);
 
-  const handleCountdown = (): void => {
-    setActive(!active);
+  const startCountDown = (): void => {
+    setIsActive(true);
+  };
+
+  const stopCountdown = (): void => {
+    clearTimeout(countdownTimeout);
+    setIsActive(false);
+    setTime(INITIAL_MINUTES);
   };
 
   return (
@@ -56,16 +62,26 @@ const Countdown: React.FC = () => {
         </StyledNumberContainer>
       </StyledContainer>
 
-      <StyledStartButton active={active} onPress={handleCountdown}>
-        <StyledStartButtonText active={active}>
-          Iniciar um ciclo
-        </StyledStartButtonText>
-        {active ? (
-          <StyledStop source={icStop} />
-        ) : (
-          <StyledPlayArrow source={icPlayArrow} />
-        )}
-      </StyledStartButton>
+      {hasFinished ? (
+        <StyledFinishedButton disabled>
+          <StyledFinishedButtonText>Ciclo encerrado</StyledFinishedButtonText>
+          <StyledFinished source={icHasFinished} />
+        </StyledFinishedButton>
+      ) : (
+        <>
+          {isActive ? (
+            <StyledStopButton onPress={stopCountdown}>
+              <StyledStopButtonText>Abandonar um ciclo</StyledStopButtonText>
+              <StyledStop source={icStop} />
+            </StyledStopButton>
+          ) : (
+            <StyledStartButton onPress={startCountDown}>
+              <StyledStartButtonText>Iniciar um ciclo </StyledStartButtonText>
+              <StyledPlayArrow source={icPlayArrow} />
+            </StyledStartButton>
+          )}
+        </>
+      )}
     </>
   );
 };
@@ -74,7 +90,7 @@ const StyledContainer = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 16px;
+  margin: 16px 32px 0;
 `;
 
 const StyledNumberContainer = styled.View`
@@ -101,19 +117,48 @@ const StyledLeftNumber = styled.Text`
   border-left-color: #e5e5e5;
 `;
 
-const StyledStartButton = styled.TouchableOpacity<IActive>`
+const StyledButton = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 32px;
+  margin: 16px 32px 0;
   padding: 24px 0;
-  background-color: ${({ active }) => (active ? '#fff' : '#5965e0')};
   border-radius: 8px;
 `;
 
-const StyledStartButtonText = styled.Text<IActive>`
+const StyledButtonText = styled.Text`
   font-size: 18px;
-  color: ${({ active }) => (active ? '#666' : '#fff')};
+`;
+
+const StyledStartButton = styled(StyledButton)`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  background-color: #5965e0;
+  border-radius: 8px;
+`;
+
+const StyledStartButtonText = styled(StyledButtonText)`
+  color: #fff;
+`;
+
+const StyledStopButton = styled(StyledButton)`
+  background-color: #fff;
+`;
+
+const StyledStopButtonText = styled(StyledButtonText)`
+  color: #666;
+`;
+
+const StyledFinishedButton = styled(StyledButton)`
+  background-color: #fff;
+  border-bottom-width: 4px;
+  border-bottom-color: #4cd62b;
+`;
+
+const StyledFinishedButtonText = styled(StyledButtonText)`
+  color: #666;
 `;
 
 const StyledPlayArrow = styled.Image`
@@ -125,6 +170,10 @@ const StyledStop = styled.Image`
   margin-left: 8px;
   height: 14px;
   width: 14px;
+`;
+
+const StyledFinished = styled.Image`
+  margin-left: 8px;
 `;
 
 export default Countdown;

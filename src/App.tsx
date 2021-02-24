@@ -6,7 +6,8 @@ import {
   ExperienceBar,
   Profile,
   Countdown,
-  CompletedChallenges
+  CompletedChallenges,
+  ChallengeBox
 } from './components';
 
 import logo from './assets/images/logo.png';
@@ -15,25 +16,29 @@ const App: React.FC = () => {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#5965e0" />
+      <StyledLogoContainer>
+        <Image source={logo} />
+        <StyledTitle>Move.it Mobile</StyledTitle>
+      </StyledLogoContainer>
       <StyledContainer>
-        <StyledLogoContainer>
-          <Image source={logo} />
-          <StyledTitle>Move.it Mobile</StyledTitle>
-        </StyledLogoContainer>
         <ExperienceBar />
         <StyledSection>
           <Profile />
           <CompletedChallenges />
           <Countdown />
+          <ChallengeBox />
         </StyledSection>
       </StyledContainer>
     </>
   );
 };
 
-const StyledContainer = styled.SafeAreaView`
-  flex: 1;
-  align-items: center;
+const StyledContainer = styled.ScrollView.attrs({
+  contentContainerStyle: {
+    flexGrow: 1,
+    alignItems: 'center'
+  }
+})`
   background-color: #e5e5e5;
 `;
 

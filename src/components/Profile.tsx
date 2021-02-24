@@ -4,20 +4,18 @@ import styled from 'styled-components/native';
 
 import icArrowUp from '../assets/icons/icArrowUp.png';
 
+const PROFILE_PICTURE =
+  'https://media-exp1.licdn.com/dms/image/C5603AQGGogTQqX6YrA/profile-displayphoto-shrink_800_800/0/1611184699396?e=1619654400&v=beta&t=HkGYf00wWxM9F-RRQRJKliRIwzJqiIuDhVt0MuuPX0s';
+
 const Profile: React.FC = () => {
   return (
     <StyledContainer>
-      <StyledAvatar
-        source={{
-          uri:
-            'https://media-exp1.licdn.com/dms/image/C5603AQGGogTQqX6YrA/profile-displayphoto-shrink_800_800/0/1611184699396?e=1619654400&v=beta&t=HkGYf00wWxM9F-RRQRJKliRIwzJqiIuDhVt0MuuPX0s'
-        }}
-      />
+      <StyledAvatar source={{ uri: PROFILE_PICTURE }} />
       <StyledUserDetails>
         <StyledUserName>Alberto Zaranza</StyledUserName>
         <StyledLevelContainer>
           <StyledArrow source={icArrowUp} />
-          <Text>Level 1</Text>
+          <Text>Nível 1</Text>
         </StyledLevelContainer>
       </StyledUserDetails>
     </StyledContainer>
@@ -27,7 +25,7 @@ const Profile: React.FC = () => {
 const StyledContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-bottom: 32px;
+  margin: 0px 32px 16px;
 `;
 
 const StyledUserDetails = styled.View`

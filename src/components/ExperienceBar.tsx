@@ -25,7 +25,7 @@ const ExperienceBar: React.FC = () => {
 
 const StyledContainer = styled.View`
   flex-direction: row;
-  margin: 48px 32px;
+  margin: 32px;
   justify-content: space-between;
   align-items: center;
 `;
