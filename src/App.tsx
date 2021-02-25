@@ -11,6 +11,7 @@ import {
 } from './components';
 
 import { ChallengesProvider } from './contexts/ChallengesContext';
+import { CountdownProvider } from './contexts/CountdownContext';
 
 import logo from './assets/images/logo.png';
 
@@ -25,12 +26,14 @@ const App: React.FC = () => {
       <StyledContainer>
         <ChallengesProvider>
           <ExperienceBar />
-          <StyledSection>
-            <Profile />
-            <CompletedChallenges />
-            <Countdown />
-            <ChallengeBox />
-          </StyledSection>
+          <CountdownProvider>
+            <StyledSection>
+              <Profile />
+              <CompletedChallenges />
+              <Countdown />
+              <ChallengeBox />
+            </StyledSection>
+          </CountdownProvider>
         </ChallengesProvider>
       </StyledContainer>
     </>

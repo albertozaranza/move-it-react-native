@@ -2,13 +2,27 @@ import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 
 import { ChallengesContext } from '../contexts/ChallengesContext';
+import { CountdownContext } from '../contexts/CountdownContext';
 
 import icStartCycle from '../assets/icons/icStartCycle.png';
 import body from '../assets/images/body.png';
 import eye from '../assets/images/eye.png';
 
 const ChallengeBox: React.FC = () => {
-  const { activeChallenge, resetChallenge } = useContext(ChallengesContext);
+  const { activeChallenge, resetChallenge, completeChallenge } = useContext(
+    ChallengesContext
+  );
+  const { stopCountdown } = useContext(CountdownContext);
+
+  const handleChallengeCompleted = (): void => {
+    completeChallenge();
+    stopCountdown();
+  };
+
+  const handleChallengeFinished = (): void => {
+    stopCountdown();
+    resetChallenge();
+  };
 
   return (
     <StyledContainer>
@@ -25,11 +39,13 @@ const ChallengeBox: React.FC = () => {
             {activeChallenge.description}
           </StyledChallengeDescription>
           <StyledButtonsContainer>
-            <StyledFailedButton onPress={resetChallenge}>
+            <StyledFailedButton onPress={handleChallengeFinished}>
               <StyledButtonText>Falhei</StyledButtonText>
             </StyledFailedButton>
             <StyledCompletedButton>
-              <StyledButtonText>Completei</StyledButtonText>
+              <StyledButtonText onPress={handleChallengeCompleted}>
+                Completei
+              </StyledButtonText>
             </StyledCompletedButton>
           </StyledButtonsContainer>
         </>

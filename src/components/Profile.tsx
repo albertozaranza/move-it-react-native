@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
 import styled from 'styled-components/native';
+
+import { ChallengesContext } from '../contexts/ChallengesContext';
 
 import icArrowUp from '../assets/icons/icArrowUp.png';
 
@@ -8,6 +10,8 @@ const PROFILE_PICTURE =
   'https://media-exp1.licdn.com/dms/image/C5603AQGGogTQqX6YrA/profile-displayphoto-shrink_800_800/0/1611184699396?e=1619654400&v=beta&t=HkGYf00wWxM9F-RRQRJKliRIwzJqiIuDhVt0MuuPX0s';
 
 const Profile: React.FC = () => {
+  const { level } = useContext(ChallengesContext);
+
   return (
     <StyledContainer>
       <StyledAvatar source={{ uri: PROFILE_PICTURE }} />
@@ -15,7 +19,7 @@ const Profile: React.FC = () => {
         <StyledUserName>Alberto Zaranza</StyledUserName>
         <StyledLevelContainer>
           <StyledArrow source={icArrowUp} />
-          <Text>Nível 1</Text>
+          <Text>Nível {level}</Text>
         </StyledLevelContainer>
       </StyledUserDetails>
     </StyledContainer>
