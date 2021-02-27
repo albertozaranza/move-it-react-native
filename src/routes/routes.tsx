@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { SignIn, Home } from '../screens';
 
+import { AuthContext } from '../contexts/AuthContext';
+
 const Stack = createStackNavigator();
 
 const Router: React.FC = () => {
-  const isSigned = false;
+  const { isSigned } = useContext(AuthContext);
 
   return (
     <>
@@ -23,7 +25,16 @@ const Router: React.FC = () => {
           </Stack.Navigator>
         </NavigationContainer>
       ) : (
-        <SignIn />
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="SignIn"
+            screenOptions={{
+              headerShown: false
+            }}
+          >
+            <Stack.Screen name="SignIn" component={SignIn} />
+          </Stack.Navigator>
+        </NavigationContainer>
       )}
     </>
   );

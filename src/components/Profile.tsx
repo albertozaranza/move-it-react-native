@@ -3,20 +3,19 @@ import { Text } from 'react-native';
 import styled from 'styled-components/native';
 
 import { ChallengesContext } from '../contexts/ChallengesContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 import icArrowUp from '../assets/icons/icArrowUp.png';
 
-const PROFILE_PICTURE =
-  'https://media-exp1.licdn.com/dms/image/C5603AQGGogTQqX6YrA/profile-displayphoto-shrink_800_800/0/1611184699396?e=1619654400&v=beta&t=HkGYf00wWxM9F-RRQRJKliRIwzJqiIuDhVt0MuuPX0s';
-
 const Profile: React.FC = () => {
   const { level } = useContext(ChallengesContext);
+  const { githubUser } = useContext(AuthContext);
 
   return (
     <StyledContainer>
-      <StyledAvatar source={{ uri: PROFILE_PICTURE }} />
+      <StyledAvatar source={{ uri: githubUser?.avatar_url }} />
       <StyledUserDetails>
-        <StyledUserName>Alberto Zaranza</StyledUserName>
+        <StyledUserName>{githubUser?.name}</StyledUserName>
         <StyledLevelContainer>
           <StyledArrow source={icArrowUp} />
           <Text>Nível {level}</Text>

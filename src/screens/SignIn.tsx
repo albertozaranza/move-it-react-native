@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import styled from 'styled-components/native';
+
+import { AuthContext } from '../contexts/AuthContext';
 
 import icGithub from '../assets/icons/icGithub.png';
 import icArrowRightWhite from '../assets/icons/icArrowRightWhite.png';
 import backgroundLogin from '../assets/images/backgroundLogin.png';
 import logo from '../assets/images/logo.png';
 
+interface TextInputButtonProps {
+  backgroundColor: () => string;
+}
+
 const SignIn: React.FC = () => {
+  const [username, setUsername] = useState('');
+
+  const { isLoading, hasError, signIn } = useContext(AuthContext);
+
+  const handleColor = (): string => {
+    if (hasError) return '#E83F5B';
+    if (username !== '') return '#4CD62B';
+    return '#4953b8';
+  };
+
   return (
     <StyledContainer>
       <StyledBackgroundImage source={backgroundLogin} />
@@ -21,9 +38,17 @@ const SignIn: React.FC = () => {
         </StyledDescriptionContainer>
       </StyledTextContainer>
       <StyledTextInputContainer>
-        <StyledTextInput />
-        <StyledTextInputButton>
-          <StyledTextInputIcon source={icArrowRightWhite} />
+        <StyledTextInput value={username} onChangeText={setUsername} />
+        <StyledTextInputButton
+          backgroundColor={handleColor}
+          disabled={isLoading}
+          onPress={() => signIn(username)}
+        >
+          {isLoading ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <StyledTextInputIcon source={icArrowRightWhite} />
+          )}
         </StyledTextInputButton>
       </StyledTextInputContainer>
     </StyledContainer>
@@ -93,11 +118,11 @@ const StyledTextInput = styled.TextInput.attrs({
   border-bottom-left-radius: 8px;
 `;
 
-const StyledTextInputButton = styled.TouchableOpacity`
+const StyledTextInputButton = styled.TouchableOpacity<TextInputButtonProps>`
   flex: 2;
   justify-content: center;
   align-items: center;
-  background-color: #4953b8;
+  background-color: ${({ backgroundColor }) => backgroundColor};
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 `;
