@@ -17,6 +17,7 @@ interface AuthContextData {
   hasError: boolean;
   githubUser: GithubResponseData | null;
   signIn: (username: string) => Promise<void>;
+  signOut: () => void;
 }
 
 interface AuthProviderProps {
@@ -56,9 +57,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
     }
   };
 
+  const signOut = (): void => {
+    setIsSigned(false);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isSigned, isLoading, hasError, githubUser, signIn }}
+      value={{ isSigned, isLoading, hasError, githubUser, signIn, signOut }}
     >
       {children}
     </AuthContext.Provider>
