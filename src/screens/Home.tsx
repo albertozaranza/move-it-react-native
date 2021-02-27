@@ -1,6 +1,4 @@
 import React from 'react';
-import { Image } from 'react-native';
-
 import styled from 'styled-components/native';
 
 import {
@@ -20,8 +18,7 @@ const Home: React.FC = () => {
   return (
     <>
       <StyledLogoContainer>
-        <Image source={logo} />
-        <StyledTitle>Move.it Mobile</StyledTitle>
+        <StyledImage source={logo} />
       </StyledLogoContainer>
       <StyledContainer>
         <ChallengesProvider>
@@ -58,10 +55,10 @@ const StyledLogoContainer = styled.View`
   background-color: #5965e0;
 `;
 
-const StyledTitle = styled.Text`
-  margin-left: 8px;
-  color: #ffffff;
-  font-size: 32px;
+const StyledImage = styled.Image`
+  height: 38px;
+  width: 180px;
+  margin: 8px 0;
 `;
 
 const StyledSection = styled.View``;
